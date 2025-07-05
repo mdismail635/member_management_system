@@ -13,7 +13,7 @@ const PublicOrganizationAccounts = () => {
 
   const fetchAccounts = async () => {
     try {
-      const querySnapshot = await getDocs(collection(db, 'accounts'));
+      const querySnapshot = await getDocs(collection(db, 'organizationAccounts'));
       const accountsData = querySnapshot.docs.map(doc => ({
         id: doc.id,
         ...doc.data()
