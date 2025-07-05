@@ -13,7 +13,7 @@ const PublicOrganizationEvents = () => {
 
   const fetchEvents = async () => {
     try {
-      const querySnapshot = await getDocs(collection(db, 'events'));
+      const querySnapshot = await getDocs(collection(db, 'organizationEvents'));
       const eventsData = querySnapshot.docs.map(doc => ({
         id: doc.id,
         ...doc.data()
