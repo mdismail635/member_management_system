@@ -13,7 +13,7 @@ const PublicDashboard = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   const menuItems = [
-    { id: 'chat', label: 'কথোপকথন', icon: MessageCircle, component: Chat },
+    { id: 'chat', label: 'কথাবার্তা', icon: MessageCircle, component: Chat },
     { id: 'members', label: 'সদস্য লিস্ট', icon: Users, component: PublicMembersList },
     { id: 'accounts', label: 'সংগঠন হিসাব', icon: Calculator, component: PublicOrganizationAccounts },
     { id: 'applications', label: 'নতুন সদস্য আবেদন', icon: UserPlus, component: PublicMemberApplications },
