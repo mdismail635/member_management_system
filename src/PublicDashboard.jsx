@@ -95,7 +95,7 @@ const PublicDashboard = () => {
               </button>
               <div className="flex items-center space-x-3 ml-2">
                 <Eye className="w-6 h-6 text-green-400" />
-                <h1 className="text-xl font-bold text-white">সংগঠন তথ্য</h1>
+                <h1 className="text-xl font-bold text-white">সদস্য সাইট</h1>
               </div>
             </div>
             <div className="flex items-center space-x-4">
