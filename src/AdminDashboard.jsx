@@ -16,7 +16,7 @@ const AdminDashboard = () => {
 
   const menuItems = [
     { id: 'statistics', label: 'সদস্য পরিসংখ্যান', icon: BarChart3, component: MemberStatistics },
-    { id: 'chat', label: 'কথোপকথন', icon: MessageCircle, component: Chat },
+    { id: 'chat', label: 'কথাবার্তা', icon: MessageCircle, component: Chat },
     { id: 'members', label: 'সদস্য লিস্ট', icon: Users, component: MembersList },
     { id: 'accounts', label: 'সংগঠন হিসাব', icon: Calculator, component: OrganizationAccounts },
     { id: 'applications', label: 'নতুন সদস্য আবেদন', icon: UserPlus, component: MemberApplications },
