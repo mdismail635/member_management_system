@@ -52,7 +52,7 @@ const PublicDashboard = () => {
                     </div>
                     <h3 className="text-white font-medium">{item.label}</h3>
                     <div className="flex items-center space-x-1 text-gray-400 text-sm">
-                      <Eye className="w-4 h-4" />
+                      <Brain className="w-4 h-4" />
                       <span>দেখুন</span>
                     </div>
                   </div>
