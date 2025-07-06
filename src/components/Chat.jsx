@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { useAuth } from '../AuthContext';
-import { Send, MessageCircle, Users, Clock } from 'lucide-react';
-import { collection, addDoc, query, orderBy, onSnapshot, serverTimestamp, where, getDocs } from 'firebase/firestore';
+import { Send, MessageCircle, Users, Clock, Eye, EyeOff, Edit3, Trash2, Check, X } from 'lucide-react';
+import { collection, addDoc, query, orderBy, onSnapshot, serverTimestamp, where, getDocs, doc, updateDoc, arrayUnion, deleteDoc } from 'firebase/firestore';
 import { db } from '../firebase';
 
 const Chat = () => {
@@ -10,6 +10,9 @@ const Chat = () => {
   const [newMessage, setNewMessage] = useState('');
   const [loading, setLoading] = useState(false);
   const [onlineUsers, setOnlineUsers] = useState([]);
+  const [showViewers, setShowViewers] = useState({});
+  const [editingMessage, setEditingMessage] = useState(null);
+  const [editText, setEditText] = useState('');
   const messagesEndRef = useRef(null);
 
   const scrollToBottom = () => {
@@ -19,6 +22,73 @@ const Chat = () => {
   useEffect(() => {
     scrollToBottom();
   }, [messages]);
+
+  // Mark message as viewed when it comes into view
+  const markMessageAsViewed = async (messageId) => {
+    try {
+      const messageRef = doc(db, 'chat_messages', messageId);
+      await updateDoc(messageRef, {
+        viewedBy: arrayUnion({
+          userId: user.uid,
+          userName: user.displayName || user.email,
+          viewedAt: serverTimestamp()
+        })
+      });
+    } catch (error) {
+      console.error('Error marking message as viewed:', error);
+    }
+  };
+
+  // Toggle viewers display for a message
+  const toggleViewers = (messageId) => {
+    setShowViewers(prev => ({
+      ...prev,
+      [messageId]: !prev[messageId]
+    }));
+  };
+
+  // Start editing a message
+  const startEdit = (message) => {
+    setEditingMessage(message.id);
+    setEditText(message.text);
+  };
+
+  // Cancel editing
+  const cancelEdit = () => {
+    setEditingMessage(null);
+    setEditText('');
+  };
+
+  // Save edited message
+  const saveEdit = async (messageId) => {
+    if (!editText.trim()) return;
+    
+    try {
+      const messageRef = doc(db, 'chat_messages', messageId);
+      await updateDoc(messageRef, {
+        text: editText.trim(),
+        editedAt: serverTimestamp(),
+        isEdited: true
+      });
+      setEditingMessage(null);
+      setEditText('');
+    } catch (error) {
+      console.error('Error editing message:', error);
+      alert('বার্তা সম্পাদনায় সমস্যা হয়েছে');
+    }
+  };
+
+  // Delete a message
+  const deleteMessage = async (messageId) => {
+    if (window.confirm('আপনি কি এই বার্তা মুছে ফেলতে চান?')) {
+      try {
+        await deleteDoc(doc(db, 'chat_messages', messageId));
+      } catch (error) {
+        console.error('Error deleting message:', error);
+        alert('বার্তা মুছতে সমস্যা হয়েছে');
+      }
+    }
+  };
 
   useEffect(() => {
     // Listen for messages
@@ -30,16 +100,26 @@ const Chat = () => {
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
       const messagesData = [];
       querySnapshot.forEach((doc) => {
+        const data = doc.data();
         messagesData.push({
           id: doc.id,
-          ...doc.data()
+          ...data,
+          viewedBy: data.viewedBy || []
         });
       });
       setMessages(messagesData);
+      
+      // Auto-mark new messages as viewed (except own messages)
+      messagesData.forEach(message => {
+        if (message.userId !== user.uid && 
+            !message.viewedBy.some(viewer => viewer.userId === user.uid)) {
+          markMessageAsViewed(message.id);
+        }
+      });
     });
 
     return () => unsubscribe();
-  }, []);
+  }, [user]);
 
   useEffect(() => {
     // Update user's online status
@@ -100,7 +180,8 @@ const Chat = () => {
         userId: user.uid,
         userEmail: user.email,
         userName: user.displayName || user.email,
-        timestamp: serverTimestamp()
+        timestamp: serverTimestamp(),
+        viewedBy: [] // Initialize empty array for viewers
       });
       setNewMessage('');
     } catch (error) {
@@ -212,13 +293,103 @@ const Chat = () => {
                       {message.userName}
                     </div>
                   )}
-                  <div className="break-words">{message.text}</div>
-                  <div className={`text-xs mt-1 flex items-center space-x-1 ${
+                  
+                  {/* Message content - editable if editing */}
+                  {editingMessage === message.id ? (
+                    <div className="space-y-2">
+                      <textarea
+                        value={editText}
+                        onChange={(e) => setEditText(e.target.value)}
+                        className="w-full bg-white/10 border border-white/20 rounded-lg px-3 py-2 text-white placeholder-gray-300 focus:outline-none focus:border-white/40 resize-none"
+                        rows="2"
+                        autoFocus
+                      />
+                      <div className="flex items-center space-x-2">
+                        <button
+                          onClick={() => saveEdit(message.id)}
+                          className="p-1 bg-green-500 hover:bg-green-600 rounded transition-colors"
+                        >
+                          <Check className="w-3 h-3" />
+                        </button>
+                        <button
+                          onClick={cancelEdit}
+                          className="p-1 bg-red-500 hover:bg-red-600 rounded transition-colors"
+                        >
+                          <X className="w-3 h-3" />
+                        </button>
+                      </div>
+                    </div>
+                  ) : (
+                    <div className="break-words">
+                      {message.text}
+                      {message.isEdited && (
+                        <span className={`text-xs ml-2 ${
+                          message.userId === user.uid ? 'text-cyan-200' : 'text-gray-400'
+                        }`}>
+                          (সম্পাদিত)
+                        </span>
+                      )}
+                    </div>
+                  )}
+                  
+                  <div className={`text-xs mt-1 flex items-center justify-between ${
                     message.userId === user.uid ? 'text-cyan-100' : 'text-gray-400'
                   }`}>
-                    <Clock className="w-3 h-3" />
-                    <span>{formatTime(message.timestamp)}</span>
+                    <div className="flex items-center space-x-1">
+                      <Clock className="w-3 h-3" />
+                      <span>{formatTime(message.timestamp)}</span>
+                    </div>
+                    
+                    <div className="flex items-center space-x-1">
+                      {/* Edit and Delete buttons for own messages */}
+                      {message.userId === user.uid && editingMessage !== message.id && (
+                        <>
+                          <button
+                            onClick={() => startEdit(message)}
+                            className="p-1 hover:bg-white/10 rounded transition-colors"
+                            title="সম্পাদনা করুন"
+                          >
+                            <Edit3 className="w-3 h-3" />
+                          </button>
+                          <button
+                            onClick={() => deleteMessage(message.id)}
+                            className="p-1 hover:bg-white/10 rounded transition-colors"
+                            title="মুছে ফেলুন"
+                          >
+                            <Trash2 className="w-3 h-3" />
+                          </button>
+                        </>
+                      )}
+                      
+                      {/* View count and toggle button for sender's messages */}
+                      {message.userId === user.uid && message.viewedBy && message.viewedBy.length > 0 && (
+                        <button
+                          onClick={() => toggleViewers(message.id)}
+                          className="flex items-center space-x-1 hover:bg-white/10 rounded px-1 py-0.5 transition-colors"
+                        >
+                          {showViewers[message.id] ? <EyeOff className="w-3 h-3" /> : <Eye className="w-3 h-3" />}
+                          <span>{message.viewedBy.length}</span>
+                        </button>
+                      )}
+                    </div>
                   </div>
+                  
+                  {/* Viewers list */}
+                  {message.userId === user.uid && showViewers[message.id] && message.viewedBy && message.viewedBy.length > 0 && (
+                    <div className="mt-2 pt-2 border-t border-white/20">
+                      <div className="text-xs text-cyan-100 mb-1">দেখেছেন:</div>
+                      <div className="space-y-1">
+                        {message.viewedBy.map((viewer, index) => (
+                          <div key={index} className="text-xs text-cyan-200 flex items-center justify-between">
+                            <span>{viewer.userName}</span>
+                            <span className="text-cyan-300">
+                              {viewer.viewedAt && formatTime(viewer.viewedAt)}
+                            </span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
                 </div>
               </div>
             ))}
@@ -260,4 +431,3 @@ const Chat = () => {
 };
 
 export default Chat;
-
