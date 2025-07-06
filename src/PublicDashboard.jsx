@@ -94,8 +94,8 @@ const PublicDashboard = () => {
                 {sidebarOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
               </button>
               <div className="flex items-center space-x-3 ml-2">
-                <Eye className="w-6 h-6 text-green-400" />
-                <h1 className="text-xl font-bold text-white">সদস্য সাইট</h1>
+                <Brain className="w-6 h-6 text-green-400" />
+                <h1 className="text-xl font-bold text-white">সদস্য ড্যাশবোর্ড</h1>
               </div>
             </div>
             <div className="flex items-center space-x-4">
