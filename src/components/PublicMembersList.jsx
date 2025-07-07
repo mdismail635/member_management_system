@@ -59,6 +59,7 @@ const PublicMembersList = () => {
               <div>
                 <h3 className="text-lg font-semibold text-white">{member.name}</h3>
                 <p className="text-gray-300">{member.phone}</p>
+                <p className="text-gray-300">{member.bloodtype}</p>
                 {member.address && <p className="text-gray-400 text-sm">{member.address}</p>}
               </div>
             </div>
