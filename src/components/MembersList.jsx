@@ -14,7 +14,7 @@ const MembersList = () => {
     phone: '',
     email: '',
     address: '',
-    bloodtype:"রক্তের গ্রুপ" '',
+    bloodtype: '',
     photo: null
   });
 
@@ -87,7 +87,7 @@ const MembersList = () => {
         await addDoc(collection(db, 'members'), memberData);
       }
 
-      setFormData({ name: '', phone: '', email: '', address: '', bloodtype:"রক্তের গ্রুপ" '', photo: null });
+      setFormData({ name: '', phone: '', email: '', address: '', bloodtype: '', photo: null });
       setShowAddForm(false);
       setEditingMember(null);
       fetchMembers();
@@ -123,7 +123,7 @@ const MembersList = () => {
   };
 
   const resetForm = () => {
-    setFormData({ name: '', phone: '', email: '', address: '', bloodtype:'রক্তের গ্রুপ' '',photo: null });
+    setFormData({ name: '', phone: '', email: '', address: '', bloodtype: '',photo: null });
     setShowAddForm(false);
     setEditingMember(null);
   };
@@ -186,7 +186,6 @@ const MembersList = () => {
               <input
               type="text"
               name="bloodtype"
-                <h>"রক্তের গ্রুপ"</h>
               placeholder="রক্তের গ্রুপ"
               value={formData.bloodtype}
               onChange={handleInputChange}
