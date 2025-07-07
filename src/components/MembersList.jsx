@@ -87,7 +87,7 @@ const MembersList = () => {
         await addDoc(collection(db, 'members'), memberData);
       }
 
-      setFormData({ name: '', phone: '', email: '', address: '', photo: null });
+      setFormData({ name: '', phone: '', email: '', address: '', bloodtype: '', photo: null });
       setShowAddForm(false);
       setEditingMember(null);
       fetchMembers();
@@ -123,7 +123,7 @@ const MembersList = () => {
   };
 
   const resetForm = () => {
-    setFormData({ name: '', phone: '', email: '', address: '', photo: null });
+    setFormData({ name: '', phone: '', email: '', address: '', bloodtype: '',photo: null });
     setShowAddForm(false);
     setEditingMember(null);
   };
