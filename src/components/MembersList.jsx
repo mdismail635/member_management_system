@@ -14,6 +14,7 @@ const MembersList = () => {
     phone: '',
     email: '',
     address: '',
+    bloodtype: '',
     photo: null
   });
 
@@ -74,6 +75,7 @@ const MembersList = () => {
         phone: formData.phone,
         email: formData.email,
         address: formData.address,
+        bloodtype: fromData.bloodtype,
         photoURL: photoURL || (editingMember?.photoURL || null),
         createdAt: editingMember ? editingMember.createdAt : new Date(),
         updatedAt: new Date()
@@ -85,7 +87,7 @@ const MembersList = () => {
         await addDoc(collection(db, 'members'), memberData);
       }
 
-      setFormData({ name: '', phone: '', email: '', address: '', photo: null });
+      setFormData({ name: '', phone: '', email: '', address: '', bloodtype: '', photo: null });
       setShowAddForm(false);
       setEditingMember(null);
       fetchMembers();
@@ -103,6 +105,7 @@ const MembersList = () => {
       phone: member.phone,
       email: member.email,
       address: member.address,
+      bloodtype: fromData.bloodtype,
       photo: null
     });
     setShowAddForm(true);
@@ -120,7 +123,7 @@ const MembersList = () => {
   };
 
   const resetForm = () => {
-    setFormData({ name: '', phone: '', email: '', address: '', photo: null });
+    setFormData({ name: '', phone: '', email: '', address: '', bloodtype: '',photo: null });
     setShowAddForm(false);
     setEditingMember(null);
   };
@@ -180,15 +183,25 @@ const MembersList = () => {
                 onChange={handleInputChange}
                 className="bg-gray-700/50 border border-gray-600/50 rounded-lg px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:border-cyan-500 focus:ring-2 focus:ring-cyan-500/20"
               />
+              <input
+              type="text"
+              name="bloodtype"
+              placeholder="রক্তের গ্রুপ"
+              value={formData.bloodtype}
+              onChange={handleInputChange}
+              required
+              className="w-full bg-gray-700/50 border border-gray-600/50 rounded-lg px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:border-green-500 focus:ring-2 focus:ring-green-500/20"
+            />
             </div>
             <div>
-              <label className="block text-gray-300 mb-2">ছবি আপলোড করুন</label>
+             <label className="block text-gray-300 mb-2">ছবি আপলোড করুন(ঐচ্ছিক)</label>
               <input
                 type="file"
                 accept="image/*"
                 onChange={handleFileChange}
                 className="bg-gray-700/50 border border-gray-600/50 rounded-lg px-4 py-3 text-white file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:bg-cyan-500 file:text-white hover:file:bg-cyan-600"
               />
+              <p className="text-gray-400 text-xs mt-1">ছবি না দিলেও সদস্য যোগ করা যাবে</p>
             </div>
             <div className="flex space-x-4">
               <button
@@ -228,6 +241,7 @@ const MembersList = () => {
               <div>
                 <h3 className="text-lg font-semibold text-white">{member.name}</h3>
                 <p className="text-gray-300">{member.phone}</p>
+                <p className="text-gray-300">{member.bloodtype}</p>
                 {member.email && <p className="text-gray-400 text-sm">{member.email}</p>}
                 {member.address && <p className="text-gray-400 text-sm">{member.address}</p>}
               </div>

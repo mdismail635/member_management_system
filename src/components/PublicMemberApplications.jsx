@@ -16,8 +16,13 @@ const PublicMemberApplications = () => {
     phone: '',
     email: '',
     address: '',
+<<<<<<< HEAD
     reason: '',
     file: null
+=======
+    bloodtype:'রক্তের গ্রুপ' '',
+    reason: ''
+>>>>>>> 64a613b58ec81b56541e89d6e656c22bca284107
   });
 
   useEffect(() => {
@@ -87,8 +92,13 @@ const PublicMemberApplications = () => {
         phone: '',
         email: '',
         address: '',
+<<<<<<< HEAD
         reason: '',
         file: null
+=======
+        bloodtype:'রক্তের গ্রুপ' '',
+        reason: ''
+>>>>>>> 64a613b58ec81b56541e89d6e656c22bca284107
       });
       setShowAddForm(false);
       fetchApplications();
@@ -107,8 +117,13 @@ const PublicMemberApplications = () => {
       phone: '',
       email: '',
       address: '',
+<<<<<<< HEAD
       reason: '',
       file: null
+=======
+      bloodtype:'রক্তের গ্রুপ' '',
+      reason: ''
+>>>>>>> 64a613b58ec81b56541e89d6e656c22bca284107
     });
     setShowAddForm(false);
   };
@@ -228,6 +243,15 @@ const PublicMemberApplications = () => {
               required
               className="w-full bg-gray-700/50 border border-gray-600/50 rounded-lg px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:border-green-500 focus:ring-2 focus:ring-green-500/20"
             />
+            <input
+              type="text"
+              name="bloodtype"
+              placeholder="রক্তের গ্রুপ"
+              value={formData.bloodtype}
+              onChange={handleInputChange}
+              required
+              className="w-full bg-gray-700/50 border border-gray-600/50 rounded-lg px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:border-green-500 focus:ring-2 focus:ring-green-500/20"
+            />
             <textarea
               name="reason"
               placeholder="সদস্য হতে চাওয়ার কারণ"
@@ -287,6 +311,7 @@ const PublicMemberApplications = () => {
                   </div>
                   <div>
                     <p><span className="text-gray-400">ঠিকানা:</span> {application.address}</p>
+                    <p><span className="text-gray-400">রক্তের গ্রুপ:</span> {application.bloodtype}</p>
                   </div>
                 </div>
                 <div className="mt-3">

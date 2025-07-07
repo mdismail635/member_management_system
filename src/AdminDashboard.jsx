@@ -16,7 +16,7 @@ const AdminDashboard = () => {
 
   const menuItems = [
     { id: 'statistics', label: 'সদস্য পরিসংখ্যান', icon: BarChart3, component: MemberStatistics },
-    { id: 'chat', label: 'কথোপকথন', icon: MessageCircle, component: Chat },
+    { id: 'chat', label: 'কথাবার্তা', icon: MessageCircle, component: Chat },
     { id: 'members', label: 'সদস্য লিস্ট', icon: Users, component: MembersList },
     { id: 'accounts', label: 'সংগঠন হিসাব', icon: Calculator, component: OrganizationAccounts },
     { id: 'applications', label: 'নতুন সদস্য আবেদন', icon: UserPlus, component: MemberApplications },
@@ -98,9 +98,9 @@ const AdminDashboard = () => {
               </div>
               <button
                 onClick={handleLogout}
-                className="flex items-center space-x-2 bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg transition-colors duration-200"
+                className="flex items-center space-x-2 bg-red-600 hover:bg-red-700 text-white px-4 py-1 rounded-lg transition-colors duration-200"
               >
-                <LogOut className="w-4 h-4" />
+                <LogOut className="w-3 h-4" />
                 <span>লগআউট</span>
               </button>
             </div>

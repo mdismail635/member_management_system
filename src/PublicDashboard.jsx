@@ -13,7 +13,7 @@ const PublicDashboard = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   const menuItems = [
-    { id: 'chat', label: 'কথোপকথন', icon: MessageCircle, component: Chat },
+    { id: 'chat', label: 'কথাবার্তা', icon: MessageCircle, component: Chat },
     { id: 'members', label: 'সদস্য লিস্ট', icon: Users, component: PublicMembersList },
     { id: 'accounts', label: 'সংগঠন হিসাব', icon: Calculator, component: PublicOrganizationAccounts },
     { id: 'applications', label: 'নতুন সদস্য আবেদন', icon: UserPlus, component: PublicMemberApplications },
@@ -95,7 +95,7 @@ const PublicDashboard = () => {
               </button>
               <div className="flex items-center space-x-3 ml-2">
                 <Eye className="w-6 h-6 text-green-400" />
-                <h1 className="text-xl font-bold text-white">সংগঠন তথ্য</h1>
+                <h1 className="text-xl font-bold text-white">সদস্য ড্যাশবোর্ড</h1>
               </div>
             </div>
             <div className="flex items-center space-x-4">

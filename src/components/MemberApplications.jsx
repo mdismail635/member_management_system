@@ -15,6 +15,7 @@ const MemberApplications = () => {
     phone: '',
     email: '',
     address: '',
+    bloodtype: '',
     reason: '',
     experience: ''
   });
@@ -65,6 +66,7 @@ const MemberApplications = () => {
         phone: '',
         email: '',
         address: '',
+        bloodtype: '',
         reason: '',
         experience: ''
       });
@@ -125,6 +127,7 @@ const MemberApplications = () => {
         phone: application.phone,
         email: application.email || '',
         address: application.address || '',
+        bloodtype: application.bloodtype || '',
         photoURL: null, // No photo from application
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -204,6 +207,7 @@ const MemberApplications = () => {
       phone: '',
       email: '',
       address: '',
+      bloodtype: '',
       reason: '',
       experience: ''
     });
@@ -317,6 +321,15 @@ const MemberApplications = () => {
                 required
                 className="bg-gray-700/50 border border-gray-600/50 rounded-lg px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:border-cyan-500 focus:ring-2 focus:ring-cyan-500/20"
               />
+              <input
+              type="text"
+              name="bloodtype"
+              placeholder="রক্তের গ্রুপ"
+              value={formData.bloodtype}
+              onChange={handleInputChange}
+              required
+              className="w-full bg-gray-700/50 border border-gray-600/50 rounded-lg px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:border-green-500 focus:ring-2 focus:ring-green-500/20"
+            />
             </div>
             <textarea
               name="reason"
@@ -373,6 +386,7 @@ const MemberApplications = () => {
                         <h4 className="text-lg font-semibold text-white">{application.name}</h4>
                         <p className="text-gray-300">{application.phone}</p>
                         <p className="text-gray-400 text-sm">{application.email}</p>
+                        <p><span className="text-gray-400">রক্তের গ্রুপ:</span> {application.bloodtype}</p>
                       </div>
                       <span className={`px-3 py-1 rounded-full text-sm border flex items-center space-x-1 ${getStatusColor(application.status)}`}>
                         {getStatusIcon(application.status)}
@@ -441,6 +455,8 @@ const MemberApplications = () => {
                       <div>
                         <h4 className="text-lg font-semibold text-white">{application.name}</h4>
                         <p className="text-gray-300">{application.phone}</p>
+                        <p><span className="text-gray-300">রক্তের গ্রুপ:</span> {application.bloodtype}</p>
+                        
                       </div>
                       <span className={`px-3 py-1 rounded-full text-sm border flex items-center space-x-1 ${getStatusColor(application.status)}`}>
                         {getStatusIcon(application.status)}
