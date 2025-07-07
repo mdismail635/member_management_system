@@ -198,6 +198,8 @@ const MembersList = () => {
               <input
                 type="file"
                 accept="image/*"
+                placeholder="ছবি"
+                value={fromData.image}
                 onChange={handleFileChange}
                 className="bg-gray-700/50 border border-gray-600/50 rounded-lg px-4 py-3 text-white file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:bg-cyan-500 file:text-white hover:file:bg-cyan-600"
               />
