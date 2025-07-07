@@ -186,6 +186,7 @@ const MembersList = () => {
               <input
               type="text"
               name="bloodtype"
+                <h>"রক্তের গ্রুপ"</h>
               placeholder="রক্তের গ্রুপ"
               value={formData.bloodtype}
               onChange={handleInputChange}
