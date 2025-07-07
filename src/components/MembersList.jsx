@@ -194,7 +194,7 @@ const MembersList = () => {
             />
             </div>
             <div>
-              <label className="block text-gray-300 mb-1">ছবি আপলোড করুন</label>
+              <label className="block text-gray-300 mb-2">ছবি আপলোড করুন</label>
               <input
                 type="file"
                 accept="image/*"
