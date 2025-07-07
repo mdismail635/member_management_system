@@ -15,7 +15,7 @@ const MemberApplications = () => {
     phone: '',
     email: '',
     address: '',
-    bloodtype:"রক্তের গ্রুপ" '',
+    bloodtype: '',
     reason: '',
     experience: ''
   });
@@ -66,7 +66,7 @@ const MemberApplications = () => {
         phone: '',
         email: '',
         address: '',
-        bloodtype:"রক্তের গ্রুপ" '',
+        bloodtype: '',
         reason: '',
         experience: ''
       });
@@ -207,7 +207,7 @@ const MemberApplications = () => {
       phone: '',
       email: '',
       address: '',
-      bloodtype:"রক্তের গ্রুপ" '',
+      bloodtype: '',
       reason: '',
       experience: ''
     });
