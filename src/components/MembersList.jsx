@@ -14,7 +14,7 @@ const MembersList = () => {
     phone: '',
     email: '',
     address: '',
-    bloodtype:'রক্তের গ্রুপ' '',
+    bloodtype:"রক্তের গ্রুপ" '',
     photo: null
   });
 
@@ -87,7 +87,7 @@ const MembersList = () => {
         await addDoc(collection(db, 'members'), memberData);
       }
 
-      setFormData({ name: '', phone: '', email: '', address: '', bloodtype: '', photo: null });
+      setFormData({ name: '', phone: '', email: '', address: '', bloodtype:"রক্তের গ্রুপ" '', photo: null });
       setShowAddForm(false);
       setEditingMember(null);
       fetchMembers();
