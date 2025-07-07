@@ -263,6 +263,7 @@ const PublicMemberApplications = () => {
                   </div>
                   <div>
                     <p><span className="text-gray-400">ঠিকানা:</span> {application.address}</p>
+                    <p><span className="text-gray-400">রক্তের গ্রুপ:</span> {application.bloodtype}</p>
                   </div>
                 </div>
                 <div className="mt-3">
