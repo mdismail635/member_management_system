@@ -14,6 +14,7 @@ const PublicMemberApplications = () => {
     phone: '',
     email: '',
     address: '',
+    bloodtype: '',
     reason: ''
   });
 
@@ -62,6 +63,7 @@ const PublicMemberApplications = () => {
         phone: '',
         email: '',
         address: '',
+        bloodtype: '',
         reason: ''
       });
       setShowAddForm(false);
@@ -81,6 +83,7 @@ const PublicMemberApplications = () => {
       phone: '',
       email: '',
       address: '',
+      bloodtype: '',
       reason: ''
     });
     setShowAddForm(false);
@@ -197,6 +200,15 @@ const PublicMemberApplications = () => {
               name="address"
               placeholder="ঠিকানা"
               value={formData.address}
+              onChange={handleInputChange}
+              required
+              className="w-full bg-gray-700/50 border border-gray-600/50 rounded-lg px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:border-green-500 focus:ring-2 focus:ring-green-500/20"
+            />
+            <input
+              type="text"
+              name="bloodtype"
+              placeholder="রক্তের গ্রুপ"
+              value={formData.bloodtype}
               onChange={handleInputChange}
               required
               className="w-full bg-gray-700/50 border border-gray-600/50 rounded-lg px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:border-green-500 focus:ring-2 focus:ring-green-500/20"
