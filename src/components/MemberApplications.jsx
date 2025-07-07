@@ -17,7 +17,7 @@ const MemberApplications = () => {
     address: '',
     bloodtype: '',
     reason: '',
-    experience: ''
+    photo: null
   });
 
   useEffect(() => {
@@ -68,7 +68,7 @@ const MemberApplications = () => {
         address: '',
         bloodtype: '',
         reason: '',
-        experience: ''
+        photo: null
       });
       setShowApplicationForm(false);
       fetchApplications();
@@ -209,7 +209,7 @@ const MemberApplications = () => {
       address: '',
       bloodtype: '',
       reason: '',
-      experience: ''
+      photo: null
     });
     setShowApplicationForm(false);
   };
@@ -341,9 +341,9 @@ const MemberApplications = () => {
               className="w-full bg-gray-700/50 border border-gray-600/50 rounded-lg px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:border-cyan-500 focus:ring-2 focus:ring-cyan-500/20"
             />
             <textarea
-              name="experience"
-              placeholder="আপনার পূর্ব অভিজ্ঞতা (ঐচ্ছিক)"
-              value={formData.experience}
+              name="photo"
+              placeholder="আপনার ছবি (ঐচ্ছিক)"
+              value={formData.photo}
               onChange={handleInputChange}
               rows="3"
               className="w-full bg-gray-700/50 border border-gray-600/50 rounded-lg px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:border-cyan-500 focus:ring-2 focus:ring-cyan-500/20"
