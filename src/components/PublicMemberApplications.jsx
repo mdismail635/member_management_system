@@ -3,6 +3,8 @@ import { db } from '../firebase';
 import { collection, addDoc, getDocs, updateDoc, doc, deleteDoc } from 'firebase/firestore';
 import { UserPlus, Plus, Eye, Send, Check, X, Clock, User } from 'lucide-react';
 import { useUserRole } from '../UserRoleContext';
+import { storage } from '../firebase';
+import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 
 const PublicMemberApplications = () => {
   const [applications, setApplications] = useState([]);
@@ -14,7 +16,8 @@ const PublicMemberApplications = () => {
     phone: '',
     email: '',
     address: '',
-    reason: ''
+    reason: '',
+    file: null
   });
 
   useEffect(() => {
@@ -44,15 +47,37 @@ const PublicMemberApplications = () => {
     }));
   };
 
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    setFormData(prev => ({
+      ...prev,
+      file: file
+    }));
+  };
+
+  const uploadFile = async (file) => {
+    if (!file) return null;
+    const storageRef = ref(storage, `member-applications/${Date.now()}-${file.name}`);
+    const snapshot = await uploadBytes(storageRef, file);
+    const downloadURL = await getDownloadURL(snapshot.ref);
+    return downloadURL;
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
 
     try {
+      let fileURL = null;
+      if (formData.file) {
+        fileURL = await uploadFile(formData.file);
+      }
       const applicationData = {
         ...formData,
         status: 'pending',
-        createdAt: new Date()
+        createdAt: new Date(),
+        fileURL: fileURL,
+        fileName: formData.file?.name || null
       };
 
       await addDoc(collection(db, 'memberApplications'), applicationData);
@@ -62,7 +87,8 @@ const PublicMemberApplications = () => {
         phone: '',
         email: '',
         address: '',
-        reason: ''
+        reason: '',
+        file: null
       });
       setShowAddForm(false);
       fetchApplications();
@@ -81,7 +107,8 @@ const PublicMemberApplications = () => {
       phone: '',
       email: '',
       address: '',
-      reason: ''
+      reason: '',
+      file: null
     });
     setShowAddForm(false);
   };
@@ -210,6 +237,15 @@ const PublicMemberApplications = () => {
               rows="4"
               className="w-full bg-gray-700/50 border border-gray-600/50 rounded-lg px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:border-green-500 focus:ring-2 focus:ring-green-500/20"
             />
+            <div>
+              <label className="block text-gray-300 mb-2">ছবি বা ডকুমেন্ট আপলোড করুন (ঐচ্ছিক)</label>
+              <input
+                type="file"
+                accept="image/*,.pdf,.doc,.docx"
+                onChange={handleFileChange}
+                className="bg-gray-700/50 border border-gray-600/50 rounded-lg px-4 py-3 text-white file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:bg-green-500 file:text-white hover:file:bg-green-600"
+              />
+            </div>
             <div className="flex space-x-4">
               <button
                 type="submit"
