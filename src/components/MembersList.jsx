@@ -194,13 +194,14 @@ const MembersList = () => {
             />
             </div>
             <div>
-              <label className="block text-gray-300 mb-2">ছবি আপলোড করুন</label>
+             <label className="block text-gray-300 mb-2">ছবি আপলোড করুন(ঐচ্ছিক)</label>
               <input
                 type="file"
                 accept="image/*"
                 onChange={handleFileChange}
                 className="bg-gray-700/50 border border-gray-600/50 rounded-lg px-4 py-3 text-white file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:bg-cyan-500 file:text-white hover:file:bg-cyan-600"
               />
+              <p className="text-gray-400 text-xs mt-1">ছবি না দিলেও সদস্য যোগ করা যাবে</p>
             </div>
             <div className="flex space-x-4">
               <button
