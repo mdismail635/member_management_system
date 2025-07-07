@@ -14,7 +14,7 @@ const PublicMemberApplications = () => {
     phone: '',
     email: '',
     address: '',
-    bloodtype: '',
+    bloodtype:'রক্তের গ্রুপ' '',
     reason: ''
   });
 
@@ -63,7 +63,7 @@ const PublicMemberApplications = () => {
         phone: '',
         email: '',
         address: '',
-        bloodtype: '',
+        bloodtype:'রক্তের গ্রুপ' '',
         reason: ''
       });
       setShowAddForm(false);
@@ -83,7 +83,7 @@ const PublicMemberApplications = () => {
       phone: '',
       email: '',
       address: '',
-      bloodtype: '',
+      bloodtype:'রক্তের গ্রুপ' '',
       reason: ''
     });
     setShowAddForm(false);
