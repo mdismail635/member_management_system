@@ -6,7 +6,7 @@ yarn-error.log*
 pnpm-debug.log*
 
 # Build outputs
-dist/_redirects /*   /index.html 200
+dist/_redirects / /*   /index.html 200
 build/
 
 # Environment variables
